@@ -16,7 +16,7 @@ import SHORTCUT_KEYS from "../config/shortcuts";
 
 const WorkerList = () => {
   const [workers, setWorkers] = React.useState([]); // store Firebase / Firestore based worker data in state
-  const [infoMessage, setInfoMessage] = React.useState(null); // informational message - success, late, warning
+  const [infoMessage, setInfoMessage] = React.useState(null); // informational message - success, late
   const [errorMessage, setErrorMessage] = React.useState(null); // error message for repeated login attempts
   const [adminMode, setAdminMode] = React.useState(false); // admin mode
   const [incrementLoginCounter, setIncrementLoginCounter] =

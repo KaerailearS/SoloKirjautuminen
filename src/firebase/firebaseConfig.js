@@ -11,7 +11,7 @@ import {
 
 // https://firebase.google.com/docs/web/setup#available-libraries
 
-//Web app Firebase configuration
+// Web app Firebase configuration
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,

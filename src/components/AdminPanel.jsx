@@ -4,6 +4,7 @@ import { db } from "../firebase/firebaseConfig";
 
 const AdminPanel = ({ workers, onUpdate }) => {
   const [newWorkerName, setNewWorkerName] = React.useState("");
+  
   const handleAddWorker = async () => {
     if (!newWorkerName.trim()) return;
 

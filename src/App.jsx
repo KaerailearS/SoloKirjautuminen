@@ -1,10 +1,10 @@
-import React from "react";
-import Clock from "./components/Clock";
-import QuoteDisplay from "./components/QuoteDisplay";
-import WorkerList from "./components/WorkerList";
+import React from "react"
+import Clock from "./components/Clock"
+import QuoteDisplay from "./components/QuoteDisplay"
+import WorkerList from "./components/WorkerList"
 
 export default function App() {
-  const [count, setCount] = React.useState(0);
+  const [count, setCount] = React.useState(0)
 
   return (
     <div className="app-container">
