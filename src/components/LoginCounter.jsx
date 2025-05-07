@@ -1,4 +1,5 @@
 import React from "react";
+import styles from '../styles/LoginCounter.module.css'
 import { doc, getDoc, updateDoc, increment } from "firebase/firestore";
 import { db } from "../firebase/firebaseConfig";
 
@@ -31,9 +32,9 @@ const LoginCounter = ({ triggerUpdateRef }) => {
   }, []);
 
   return (
-    <div className="counters">
-      <p className="local-counter">Logins since last reset: {localCount}</p>
-      <p className="global-counter">Total logins: {globalCount}</p>
+    <div className={styles.loginCounters}>
+      <p className={`${styles.counter} ${styles.localCounter}`}>Logins since last reset: {localCount}</p>
+      <p className={`${styles.counter} ${styles.globalCounter}`}>Total logins: {globalCount}</p>
     </div>
   );
 };

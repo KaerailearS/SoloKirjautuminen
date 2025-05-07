@@ -1,19 +1,18 @@
 import React from "react"
+import styles from './styles/App.module.css'
 import Clock from "./components/Clock"
 import QuoteDisplay from "./components/QuoteDisplay"
 import WorkerList from "./components/WorkerList"
 
 export default function App() {
-  const [count, setCount] = React.useState(0)
-
   return (
-    <div className="app-container">
-      <header>
+    <div className={styles.container}>
+      <header className={styles.header}>
         <QuoteDisplay />
         <Clock />
         <h1>G'mornin'!</h1>
       </header>
-      <main>
+      <main className={styles.main}>
         <WorkerList />
       </main>
       <footer>

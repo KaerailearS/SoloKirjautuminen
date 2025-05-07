@@ -1,4 +1,5 @@
 import React from "react";
+import styles from '../styles/QuoteDisplay.module.css'
 
 export default function QuoteDisplay() {
   const [quote, setQuote] = React.useState("Blerp");
@@ -22,9 +23,9 @@ export default function QuoteDisplay() {
       });
   }, []);
   return (
-    <div className="quote-section">
-      <p className='quote-text'>"{quote.q}"</p>
-      <p className='quote-author'>– {quote.a}</p>
+    <div className={styles.quoteSection}>
+      <p className={styles.quoteText}>"{quote.q}"</p>
+      <p className={styles.quoteAuthor}>– {quote.a}</p>
       </div>
       )
 }

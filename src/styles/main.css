@@ -1,9 +1,14 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
-.card {
-  padding: 2em;
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  background-image: url('../assets/images/background_vista_1.png');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
 }

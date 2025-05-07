@@ -1,4 +1,5 @@
 import React from "react";
+import styles from '../styles/Clock.module.css'
 
 const Clock = () => {
   const [time, setTime] = React.useState(new Date());
@@ -9,7 +10,7 @@ const Clock = () => {
   }, []);
 
   return (
-    <div className="clock">
+    <div className={styles.clock}>
       <h2>{time.toLocaleTimeString()}</h2>
     </div>
   );

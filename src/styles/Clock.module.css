@@ -1,0 +1,10 @@
+.clock {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #fff;
+  text-align: center;
+  padding: 0.3rem;
+  border-radius: 8px;
+  width: fit-content;
+  margin: 0 auto;
+}

@@ -1,0 +1,31 @@
+/* WorkerCard.module.css */
+
+.workerCard {
+  width: 128px; /* Width of each button */
+  height: 128px; /* Height of each button to make it a square */
+  font-size: 1.5rem; /* Font size */
+  display: flex;
+  align-items: center; /* Centers text vertically */
+  justify-content: center; /* Centers text horizontally */
+  border-radius: 8px; /* Rounded corners */
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease; /* Smooth hover transition */
+}
+
+.loggedIn {
+  background-color: #4caf50; /* green */
+  color: white; /* white font */
+}
+
+.loggedOut {
+  background-color: #9e9e9e; /* gray with black font */
+}
+
+.workerCard:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+.workerCard:hover {
+  background-color: #ddd; /* Slightly brightens the background on hover */
+}

@@ -1,4 +1,5 @@
 import React from "react";
+import styles from '../styles/AdminPanel.module.css'
 import {
   collection,
   addDoc,
@@ -84,27 +85,28 @@ const AdminPanel = ({ workers, onUpdate }) => {
   };
 
   return (
-    <div className="admin-panel">
-      <h2>Admin Panel</h2>
-      <p>Please do not abuse this menu</p>
+    <div className={styles.adminPanel}>
+      <h2 className={styles.heading}>Admin Panel</h2>
+      <p className={styles.note}>Please do not abuse this menu</p>
       <input
         type="text"
         value={newWorkerName}
         onChange={(e) => setNewWorkerName(e.target.value)}
         placeholder="New worker name"
+        className={styles.input}
       />
-      <button onClick={handleAddWorker}>Add worker</button>
+      <button onClick={handleAddWorker} className={styles.button}>Add worker</button>
 
       <ul>
         {workers.map((worker) => (
           <li key={worker.id}>
-            {worker.name}
             <input
               type="text"
               value={edits[worker.id]?.name ?? worker.name}
               onChange={(e) =>
                 handleEditChange(worker.id, "name", e.target.value)
               }
+              className={styles.input}
             />
             <input
               type="number"
@@ -116,18 +118,21 @@ const AdminPanel = ({ workers, onUpdate }) => {
               onChange={(e) =>
                 handleEditChange(worker.id, "totalLateMinutes", e.target.value)
               }
+              className={styles.input}
             />
-            <button onClick={() => handleSaveChanges(worker.id)}>Save</button>
-            <button onClick={() => handleDelete(worker.id)}>Delete</button>
+            <button onClick={() => handleSaveChanges(worker.id)} className={styles.button}>Save</button>
+            <button onClick={() => handleDelete(worker.id)} className={styles.button}>Delete</button>
             {worker.isLoggedIn && (
-              <button onClick={() => handleLogoutOne(worker.id, worker.name)}>Logout</button>
+              <button onClick={() => handleLogoutOne(worker.id, worker.name)} className={styles.button}>Logout</button>
             )}
           </li>
         ))}
       </ul>
       <div className="mass-logout-section">
-        <p>Force mass logout incase of stuck state</p>
-        <button onClick={handleLogoutAll}>Mass Logout</button>
+        <p className={styles.massLogoutText}>Force mass logout incase of stuck state</p>
+        <div className={styles.massLogoutContainer}>
+          <button onClick={handleLogoutAll} className={styles.button}>Mass Logout</button>
+        </div>
       </div>
     </div>
   );

@@ -1,0 +1,28 @@
+/* App.module.css */
+.container {
+  display: grid;
+  grid-template-rows: auto auto 1fr auto;
+  gap: 1rem;
+  min-height: 100vh;
+  padding: 1rem;
+}
+
+header {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+h1 {
+  font-size: 3rem;
+  font-weight: bold;
+  text-align: center;
+  color: #000000;
+  margin-bottom: 1rem;
+}

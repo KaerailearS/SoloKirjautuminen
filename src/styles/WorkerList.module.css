@@ -1,0 +1,15 @@
+.workerList {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr); /* 5 items per row */
+  gap: 20px; /* Space between buttons */
+  max-width: 720px; /* Max width of the container */
+  margin: 0 auto; /* Centers the container horizontally */
+  justify-items: center; /* Centers buttons horizontally within the grid */
+  margin-bottom: 50px;
+}
+.notifications {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 10px; /* Adjust as needed */
+}

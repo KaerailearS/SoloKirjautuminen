@@ -1,0 +1,77 @@
+/* AdminPanel.module.css */
+.adminPanel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background-color: rgba(68, 68, 68, 0.2);
+  border-radius: 8px;
+  width: 80%;
+  max-width: 800px;
+  margin: 20px auto;
+  color: white;
+}
+
+.heading {
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+.note {
+  font-size: 1.1rem;
+  margin-bottom: 20px;
+}
+
+.newWorkerForm {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.input {
+  padding: 8px;
+  font-size: 1rem;
+  width: 200px;
+  border-radius: 4px;
+  border: 2px solid #666;
+}
+
+.button {
+  background-color: #333;
+  color: white;
+  border-radius: 8px;
+  padding: 10px 15px;
+  font-size: 1rem;
+  border: 2px solid #666;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.button:hover {
+  background-color: #555;
+}
+
+.workerEdit {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.workerEdit input {
+  width: 150px;
+}
+
+.massLogoutText {
+  margin-top: 20px;
+  font-size: 1.1rem;
+}
+.massLogoutContainer {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+.massLogoutText, .button {
+  margin-top: 20px;
+}

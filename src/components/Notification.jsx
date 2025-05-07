@@ -1,3 +1,5 @@
+import styles from "../styles/Notification.module.css";
+
 const Notification = ({ type, text }) => {
   const color = {
     success: "green",
@@ -5,8 +7,8 @@ const Notification = ({ type, text }) => {
     warning: "orange",
   }[type];
   return (
-    <div style={{ border: `1px solid ${color}`, marginTop: 10, padding: 8 }}>
-      {text}
+    <div className={`${styles.notification} ${styles[type]} ${text ? styles.visible : styles.hidden}`}>
+      {text && <span>{text}</span>}
     </div>
   );
 };
