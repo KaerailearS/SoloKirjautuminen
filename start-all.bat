@@ -1,0 +1,6 @@
+@echo off
+echo Starting backend server...
+start cmd /k "cd quote-backend && node server.js"
+
+echo Starting React frontend...
+start cmd /k "npm run dev"

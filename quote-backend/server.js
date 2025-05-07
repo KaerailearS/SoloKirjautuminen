@@ -1,6 +1,30 @@
-import express from 'express'
-import cors from 'cors'
-import fetch from 'node-fetch'
+const fs = require('fs');
+const path = require('path');
+
+// Log unhandled errors to a file so we can read them even if the window closes
+const logPath = path.join(__dirname, 'error-log.txt');
+const logStream = fs.createWriteStream(logPath, { flags: 'a' });
+
+process.on('uncaughtException', err => {
+  logStream.write(`UNCAUGHT EXCEPTION: ${err.stack || err}\n`);
+  process.exit(1);
+});
+
+process.on('unhandledRejection', err => {
+  logStream.write(`UNHANDLED REJECTION: ${err.stack || err}\n`);
+  process.exit(1);
+});
+
+const originalConsoleLog = console.log;
+console.log = (...args) => {
+  originalConsoleLog(...args)
+  logStream.write(args.join(' ') + '\n');
+};
+
+
+const express = require('express')
+const cors = require('cors')
+const fetch = require('node-fetch')
 
 const app = express()
 const PORT = 3000

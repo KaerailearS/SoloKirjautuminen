@@ -17,11 +17,6 @@ export default function App() {
         <WorkerList />
       </main>
       <footer>
-        <div className="card">
-          <button onClick={() => setCount((count) => count + 1)}>
-            count is {count}
-          </button>
-        </div>
       </footer>
     </div>
   );

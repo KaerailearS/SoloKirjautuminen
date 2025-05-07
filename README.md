@@ -11,32 +11,26 @@ WIP
 Parannusehdotukset -
 
 AdminPanel
-	Nimien muokkaus
-	Myöhästymisajan muokkaus
-	Yksilö logout
+	Nimien muokkaus -- done
+	Myöhästymisajan muokkaus -- done
+	Yksilö logout -- done
+	Confirmation boxes for logging out individual + everyone
+	Move deleted worker into inactive
 
 Clock
-	TotalLateness tunnit + minuutit
+	TotalLateness tunnit + minuutit -- done
 	
 CSS
-  All of it -- Manu
+  All of it -- tailwind
 
 Electron
-	Muuttaa run komennon .exe tiedostoksi -- Taavi
+	Muuttaa run komennon .exe tiedostoksi -- .bat tiedosto
 
 WorkerCard
-	indeksi / järjestys korjaus - aakkosjärjestys oletettavasti -- Taavi
-	Värit korjata - Vihreä(paikalla), oranssi/punainen myöhässä(?) 
+	indeksi / järjestys korjaus - aakkosjärjestys oletettavasti -- done
 
 Meemit
 	Stare-on-late
 
-Muna
-	Oskarin Muna -- Oskari
-
-
 Krishnan toiveet
-	??
-
-Count
-	-remove
+  Projekti valmiiksi

@@ -1,10 +1,18 @@
 import React from "react";
-import { collection, addDoc, deleteDoc, getDocs, updateDoc, doc } from "firebase/firestore";
+import {
+  collection,
+  addDoc,
+  deleteDoc,
+  getDocs,
+  updateDoc,
+  doc,
+} from "firebase/firestore";
 import { db } from "../firebase/firebaseConfig";
 
 const AdminPanel = ({ workers, onUpdate }) => {
   const [newWorkerName, setNewWorkerName] = React.useState("");
-  
+  const [edits, setEdits] = React.useState({});
+
   const handleAddWorker = async () => {
     if (!newWorkerName.trim()) return;
 
@@ -38,13 +46,47 @@ const AdminPanel = ({ workers, onUpdate }) => {
       })
     );
     await Promise.all(updates);
+    alert("Everyone has been logged out.")
     onUpdate();
   };
+
+  const handleLogoutOne = async (id, name) => {
+    const confirmed = window.confirm(`Log out ${name}?`);
+    if (!confirmed) return;
+
+    await updateDoc(doc(db, "workers", id), { isLoggedIn: false });
+
+    alert(`${name} has been logged out.`);
+    onUpdate();
+  };
+
+  const handleEditChange = (id, field, value) => {
+    setEdits((prev) => ({
+      ...prev,
+      [id]: {
+        ...prev[id],
+        [field]: value,
+      },
+    }));
+  };
+
+  const handleSaveChanges = async (id) => {
+    if (!edits[id]) return;
+
+    const updates = {};
+    if (edits[id].name !== undefined) updates.name = edits[id].name;
+    if (edits[id].totalLateMinutes !== undefined)
+      updates.totalLateMinutes = parseInt(edits[id].totalLateMinutes) || 0;
+
+    await updateDoc(doc(db, "workers", id), updates);
+    setEdits((prev) => ({ ...prev, [id]: {} }));
+    onUpdate();
+  };
+
   return (
     <div className="admin-panel">
       <h2>Admin Panel</h2>
       <p>Please do not abuse this menu</p>
-
       <input
         type="text"
         value={newWorkerName}
@@ -57,7 +99,29 @@ const AdminPanel = ({ workers, onUpdate }) => {
         {workers.map((worker) => (
           <li key={worker.id}>
             {worker.name}
+            <input
+              type="text"
+              value={edits[worker.id]?.name ?? worker.name}
+              onChange={(e) =>
+                handleEditChange(worker.id, "name", e.target.value)
+              }
+            />
+            <input
+              type="number"
+              value={
+                edits[worker.id]?.totalLateMinutes ??
+                worker.totalLateMinutes ??
+                0
+              }
+              onChange={(e) =>
+                handleEditChange(worker.id, "totalLateMinutes", e.target.value)
+              }
+            />
+            <button onClick={() => handleSaveChanges(worker.id)}>Save</button>
             <button onClick={() => handleDelete(worker.id)}>Delete</button>
+            {worker.isLoggedIn && (
+              <button onClick={() => handleLogoutOne(worker.id, worker.name)}>Logout</button>
+            )}
           </li>
         ))}
       </ul>

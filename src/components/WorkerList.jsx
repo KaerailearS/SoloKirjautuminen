@@ -13,12 +13,13 @@ import { isLate, getMinutesLate } from "../utils/timeUtils";
 import AdminPanel from "./AdminPanel";
 import LoginCounter from "./LoginCounter";
 import SHORTCUT_KEYS from "../config/shortcuts";
+import { formatLateTime } from "../utils/timeUtils";
 
 const WorkerList = () => {
   const [workers, setWorkers] = React.useState([]); // store Firebase / Firestore based worker data in state
   const [infoMessage, setInfoMessage] = React.useState(null); // informational message - success, late
   const [errorMessage, setErrorMessage] = React.useState(null); // error message for repeated login attempts
-  const [adminMode, setAdminMode] = React.useState(false); // admin mode
+  const [adminPanel, setAdminPanel] = React.useState(false); // admin mode
   const [incrementLoginCounter, setIncrementLoginCounter] =
     React.useState(null);
 
@@ -29,6 +30,10 @@ const WorkerList = () => {
       id: doc.id,
       ...doc.data(),
     }));
+
+    result.sort((a, b) =>
+      a.name.localeCompare(b.name, undefined, { sensitivity: "base" })
+    );
     setWorkers(result);
   };
   // function for the buttons handling clicky click
@@ -61,7 +66,7 @@ const WorkerList = () => {
       type: late ? "warning" : "success",
       text: `${worker.name} logged in at ${now.toLocaleTimeString()}${
         late ? ` — ${minutesLate} minutes late!` : "On time!"
-      } Total late: ${worker.totalLateMinutes + (late ? minutesLate : 0)} mins`,
+      } Total late: ${formatLateTime(worker.totalLateMinutes)}`,
     });
 
     setTimeout(() => setInfoMessage(null), 5000);
@@ -82,7 +87,7 @@ const WorkerList = () => {
 
       if (match) {
         e.preventDefault();
-        setAdminMode((prev) => !prev);
+        setAdminPanel((prev) => !prev);
       }
     };
     window.addEventListener("keydown", handleKeyDown);
@@ -102,7 +107,7 @@ const WorkerList = () => {
           disabled={worker.isLoggedIn} // disables the button once logged in equals true
         />
       ))}
-      {adminMode && <AdminPanel workers={workers} onUpdate={fetchWorkers} />}
+      {adminPanel && <AdminPanel workers={workers} onUpdate={fetchWorkers} />}
       {infoMessage && <Notification {...infoMessage} />}
       {errorMessage && <Notification {...errorMessage} />}
       <LoginCounter triggerUpdateRef={setIncrementLoginCounter} />
