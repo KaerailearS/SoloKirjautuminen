@@ -73,5 +73,9 @@
   margin-top: 20px;
 }
 .massLogoutText, .button {
-  margin-top: 20px;
+  margin-top: 10px;
+}
+h3 {
+  text-align: center;
+  margin: 10px;
 }

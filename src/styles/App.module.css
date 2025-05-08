@@ -26,3 +26,16 @@ h1 {
   color: #000000;
   margin-bottom: 1rem;
 }
+.languageButtonContainer {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+.englishButton {
+  border: none;
+  cursor: pointer;
+}
+.finnishButton {
+  border: none;
+  cursor: pointer;
+}

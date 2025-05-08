@@ -1,5 +1,7 @@
 import React from "react";
 import styles from "../styles/WorkerList.module.css";
+import finnish from "../languages/finnish";
+import english from "../languages/english";
 import {
   collection,
   getDocs,
@@ -16,7 +18,7 @@ import LoginCounter from "./LoginCounter";
 import SHORTCUT_KEYS from "../config/shortcuts";
 import { formatLateTime } from "../utils/timeUtils";
 
-const WorkerList = () => {
+const WorkerList = ({texts}) => {
   const [workers, setWorkers] = React.useState([]); // store Firebase / Firestore based worker data in state
   const [infoMessage, setInfoMessage] = React.useState(null); // informational message - success, late
   const [errorMessage, setErrorMessage] = React.useState(null); // error message for repeated login attempts
@@ -42,7 +44,7 @@ const WorkerList = () => {
     if (worker.isLoggedIn) {
       setErrorMessage({
         type: "error",
-        text: `${worker.name} is already logged in.`,
+        text: `${worker.name}${texts.errorNotification}`,
       });
 
       setTimeout(() => {
@@ -63,11 +65,11 @@ const WorkerList = () => {
       totalLateMinutes: worker.totalLateMinutes + (late ? minutesLate : 0), // only adds if late
     });
 
+    const timeStr = now.toLocaleTimeString();
+    const totalLateFormatted = formatLateTime(worker.totalLateMinutes)
     setInfoMessage({
       type: late ? "warning" : "success",
-      text: `${worker.name} logged in at ${now.toLocaleTimeString()}.${
-        late ? ` — ${minutesLate} minutes late!` : " On time!"
-      } Total late: ${formatLateTime(worker.totalLateMinutes)}`,
+      text: late ? texts.loginLate(worker.name, timeStr, minutesLate, totalLateFormatted) : texts.loginSuccess(worker.name, timeStr, totalLateFormatted)
     });
 
     setTimeout(() => setInfoMessage(null), 5000);
@@ -100,6 +102,8 @@ const WorkerList = () => {
 
   return (
     <div>
+      <LoginCounter texts={texts}
+      triggerUpdateRef={setIncrementLoginCounter} />
       <div className={styles.workerList}>
         {workers.map((worker) => (
           <WorkerCard
@@ -108,13 +112,13 @@ const WorkerList = () => {
             onLogin={() => handleLogin(worker)} // passes the full worker object into the function
             disabled={worker.isLoggedIn} // disables the button once logged in equals true
             isLoggedIn={worker.isLoggedIn} // basing className on this
+            texts={texts}
           />
         ))}
       </div>
-      {infoMessage && <Notification {...infoMessage} />}
-      {errorMessage && <Notification {...errorMessage} />}
-      <LoginCounter triggerUpdateRef={setIncrementLoginCounter} />
-      {adminPanel && <AdminPanel workers={workers} onUpdate={fetchWorkers} />}
+      {infoMessage && <Notification texts={texts} {...infoMessage} />}
+      {errorMessage && <Notification texts={texts} {...errorMessage} />}
+      {adminPanel && <AdminPanel texts={texts} workers={workers} onUpdate={fetchWorkers} />}
     </div>
   );
 };

@@ -2,7 +2,7 @@
   display: flex;
   justify-content: center;
   gap: 16px;
-  margin-top: 20px; /* Adjust space between worker list and counters */
+  margin-bottom: 35px; /* Adjust space between worker list and counters */
 }
 
 .counter {

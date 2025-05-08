@@ -1,5 +1,7 @@
 import React from "react";
 import styles from '../styles/Clock.module.css'
+import finnish from "../languages/finnish";
+import english from "../languages/english";
 
 const Clock = () => {
   const [time, setTime] = React.useState(new Date());

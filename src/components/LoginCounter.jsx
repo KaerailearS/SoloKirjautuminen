@@ -1,9 +1,11 @@
 import React from "react";
 import styles from '../styles/LoginCounter.module.css'
+import finnish from "../languages/finnish";
+import english from "../languages/english";
 import { doc, getDoc, updateDoc, increment } from "firebase/firestore";
 import { db } from "../firebase/firebaseConfig";
 
-const LoginCounter = ({ triggerUpdateRef }) => {
+const LoginCounter = ({ triggerUpdateRef, texts }) => {
   const [localCount, setLocalCount] = React.useState(0);
   const [globalCount, setGlobalCount] = React.useState(0);
 
@@ -33,8 +35,8 @@ const LoginCounter = ({ triggerUpdateRef }) => {
 
   return (
     <div className={styles.loginCounters}>
-      <p className={`${styles.counter} ${styles.localCounter}`}>Logins since last reset: {localCount}</p>
-      <p className={`${styles.counter} ${styles.globalCounter}`}>Total logins: {globalCount}</p>
+      <p className={`${styles.counter} ${styles.localCounter}`}>{texts.localCounter}{localCount}</p>
+      <p className={`${styles.counter} ${styles.globalCounter}`}>{texts.globalCounter}{globalCount}</p>
     </div>
   );
 };

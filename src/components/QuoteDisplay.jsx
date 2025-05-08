@@ -1,7 +1,9 @@
 import React from "react";
 import styles from '../styles/QuoteDisplay.module.css'
+import finnish from "../languages/finnish";
+import english from "../languages/english";
 
-export default function QuoteDisplay() {
+export default function QuoteDisplay({ texts}) {
   const [quote, setQuote] = React.useState("Blerp");
 
   React.useEffect(() => {
