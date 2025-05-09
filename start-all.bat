@@ -4,3 +4,6 @@ start cmd /k "cd quote-backend && node server.js"
 
 echo Starting React frontend...
 start cmd /k "npm run dev"
+
+echo Starting Electron app...
+start cmd /k "npx electron ."

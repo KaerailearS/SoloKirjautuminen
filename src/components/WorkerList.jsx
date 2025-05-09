@@ -18,7 +18,7 @@ import LoginCounter from "./LoginCounter";
 import SHORTCUT_KEYS from "../config/shortcuts";
 import { formatLateTime } from "../utils/timeUtils";
 
-const WorkerList = ({texts}) => {
+const WorkerList = ({ texts }) => {
   const [workers, setWorkers] = React.useState([]); // store Firebase / Firestore based worker data in state
   const [infoMessage, setInfoMessage] = React.useState(null); // informational message - success, late
   const [errorMessage, setErrorMessage] = React.useState(null); // error message for repeated login attempts
@@ -56,20 +56,24 @@ const WorkerList = ({texts}) => {
     const now = new Date();
     const late = isLate(now); // comparing time vs 9am
     const minutesLate = getMinutesLate(now); // gets the minutes past 9am, if late
+    const minutesToAdd = late ? minutesLate : 0;
+    const newTotalLate = worker.totalLateMinutes + minutesToAdd;
 
     const workerRef = doc(db, "workers", worker.id); // Reference for the specific worker info doc
     await updateDoc(workerRef, {
       isLoggedIn: true, // turns logged in state to true
       late, // state for late vs not late(true / false)
       lastLogin: Timestamp.fromDate(now), // Firebase data for last login, if needed
-      totalLateMinutes: worker.totalLateMinutes + (late ? minutesLate : 0), // only adds if late
+      totalLateMinutes: newTotalLate, // only adds if late
     });
 
     const timeStr = now.toLocaleTimeString();
-    const totalLateFormatted = formatLateTime(worker.totalLateMinutes)
+    const totalLateFormatted = formatLateTime(newTotalLate);
     setInfoMessage({
       type: late ? "warning" : "success",
-      text: late ? texts.loginLate(worker.name, timeStr, minutesLate, totalLateFormatted) : texts.loginSuccess(worker.name, timeStr, totalLateFormatted)
+      text: late
+        ? texts.loginLate(worker.name, timeStr, minutesLate, totalLateFormatted)
+        : texts.loginSuccess(worker.name, timeStr, totalLateFormatted),
     });
 
     setTimeout(() => setInfoMessage(null), 5000);
@@ -79,6 +83,17 @@ const WorkerList = ({texts}) => {
     if (incrementLoginCounter) incrementLoginCounter();
   };
 
+  const autoLogoutAllWorkers = async () => {
+    const snapshot = await getDocs(collection(db, "workers"));
+    const batch = [];
+
+    snapshot.forEach((docSnap) => {
+      const workerRef = doc(db, "workers", docSnap.id);
+      batch.push(updateDoc(workerRef, { isLoggedIn: false, late: false }));
+    });
+    await Promise.all(batch);
+    fetchWorkers();
+  };
   React.useEffect(() => {
     const handleKeyDown = (e) => {
       const shortcut = SHORTCUT_KEYS.ADMIN_PANEL_TOGGLE;
@@ -100,10 +115,21 @@ const WorkerList = ({texts}) => {
     fetchWorkers();
   }, []);
 
+  React.useEffect(() => {
+    const now = new Date();
+    const millisUntilMidnight =
+      new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1).getTime() -
+      now.getTime();
+
+    const timeoutId = setTimeout(() => {
+      autoLogoutAllWorkers();
+      setInterval(autoLogoutAllWorkers, 24 * 60 * 60 * 1000);
+    }, millisUntilMidnight);
+    return () => clearTimeout(timeoutId);
+  }, []);
   return (
     <div>
-      <LoginCounter texts={texts}
-      triggerUpdateRef={setIncrementLoginCounter} />
+      <LoginCounter texts={texts} triggerUpdateRef={setIncrementLoginCounter} />
       <div className={styles.workerList}>
         {workers.map((worker) => (
           <WorkerCard
@@ -118,7 +144,9 @@ const WorkerList = ({texts}) => {
       </div>
       {infoMessage && <Notification texts={texts} {...infoMessage} />}
       {errorMessage && <Notification texts={texts} {...errorMessage} />}
-      {adminPanel && <AdminPanel texts={texts} workers={workers} onUpdate={fetchWorkers} />}
+      {adminPanel && (
+        <AdminPanel texts={texts} workers={workers} onUpdate={fetchWorkers} />
+      )}
     </div>
   );
 };

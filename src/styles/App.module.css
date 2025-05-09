@@ -32,10 +32,14 @@ h1 {
   gap: 20px;
 }
 .englishButton {
+  height: 50px;
+  width: 100px;
   border: none;
   cursor: pointer;
 }
 .finnishButton {
   border: none;
   cursor: pointer;
+  height: 50px;
+  width: 100px;
 }

@@ -149,30 +149,42 @@ const AdminPanel = ({ workers, onUpdate, texts }) => {
     <div className={styles.adminPanel}>
       <h2 className={styles.heading}>{texts.adminPanel}</h2>
       <p className={styles.note}>{texts.adminNote}</p>
-      <input
-        type="text"
-        value={newWorkerName}
-        onChange={(e) => setNewWorkerName(e.target.value)}
-        placeholder={texts.newWorkerPlaceholder}
-        className={styles.input}
-      />
-      <button onClick={handleAddWorker} className={styles.button}>
-        {texts.addWorker}
-      </button>
+      <form onSubmit={(e) =>{
+        e.preventDefault()
+        handleAddWorker()
+      }}>
+        <input
+          type="text"
+          value={newWorkerName}
+          onChange={(e) => setNewWorkerName(e.target.value)}
+          placeholder={texts.newWorkerPlaceholder}
+          className={styles.input}
+        />
+        <button className={styles.button}>
+          {texts.addWorker}
+        </button>
+      </form>
 
       <ul>
         {workers.map((worker) => (
           <li key={worker.id}>
             <input
               type="text"
+              className={styles.input}
               value={edits[worker.id]?.name ?? worker.name}
               onChange={(e) =>
                 handleEditChange(worker.id, "name", e.target.value)
               }
-              className={styles.input}
+              onKeyDown={(e)=>{
+                if (e.key === "Enter"){
+                  e.preventDefault()
+                  handleSaveChanges(worker.id)
+                }
+              }}
             />
             <input
               type="number"
+              className={styles.input}
               value={
                 edits[worker.id]?.totalLateMinutes ??
                 worker.totalLateMinutes ??
@@ -181,7 +193,12 @@ const AdminPanel = ({ workers, onUpdate, texts }) => {
               onChange={(e) =>
                 handleEditChange(worker.id, "totalLateMinutes", e.target.value)
               }
-              className={styles.input}
+              onKeyDown={(e)=>{
+                if(e.key === "Enter"){
+                  e.preventDefault()
+                  handleSaveChanges(worker.id)
+                }
+              }}
             />
             <button
               onClick={() => handleSaveChanges(worker.id)}

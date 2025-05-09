@@ -3,6 +3,10 @@ const path = require("path");
 const { spawn } = require("child_process");
 const fs = require("fs");
 
+try {
+  require("electron-reloader")(module);
+} catch (_) {}
+
 let backendProcess = null;
 
 function createWindow() {
