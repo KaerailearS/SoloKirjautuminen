@@ -1,36 +1,29 @@
 # Login / Punchcard App created using React + Vite
 
-Made this thing based off of the group project assignment we were given.
-Had a very boring saturday evening, so I ended up giving this a spin, one thing led to another, and 10 hours later, this thing came out of it.
+Käyttöohjeet:
 
-WIP
+Työläinen klikkaa omaa nimeä tullessaan työpaikalle.
 
+Klikkaus aktivoi funktion joka vertaa aikaa kello yhdeksään, ja antaa ilmoituksen riippuen onko työläinen ajoissa, myöhässä vai jo kirjautunut sisään.
+Viestissä lukee myös kokonais myöhästymis aika.
 
+Ylhäällä on satunnaisesti vedetty "inspirational quote" ZenQuotes.io API:sta, joka vaihtuu joko applikaation resetattaessa, taikka kerran päivässä.
+Back-up quote löytyy, sekä myös error quote mikäli quote-backend server ei käynnissä taikka tavoitettavissa.
 
+Taustalla quote-backend server.js hoitaa quotejen fetchaamisen ZenQuotesista, ja näyttää sen applikaation yläreunassa, mikäli mahdollista.
 
-Parannusehdotukset -
+Kirjautumistiedot, aika muutokset ja muut data tallentuu Firebase/Firestore databaseen.
+Kerätyt tiedot: "name", "isLoggedIn", "isLate", "totalMinutesLate", "lastLogin"
 
-AdminPanel
-	Nimien muokkaus -- done
-	Myöhästymisajan muokkaus -- done
-	Yksilö logout -- done
-	Confirmation boxes for logging out individual + everyone
-	Move deleted worker into inactive
+Admin Panel:
+Ei tarkoitettu normaali käyttäjän nähtäväksi.
 
-Clock
-	TotalLateness tunnit + minuutit -- done
-	
-CSS
-  All of it -- tailwind
+Admin panelista voi:
+Lisätä työläisiä
+Muokata työläisen nimeä sekä kokonais myöhästymistä
+Kirjata yksilön, sekä kaikki käyttäjät ulos
+Arkistoida yksilön (siirtää työläisen+datan toiseen Firestore kansioon)
+Admin panelin pohjalla on arkisto, josta voi palauttaa arkistoituja työläisiä tarvittaessa.
 
-Electron
-	Muuttaa run komennon .exe tiedostoksi -- .bat tiedosto
-
-WorkerCard
-	indeksi / järjestys korjaus - aakkosjärjestys oletettavasti -- done
-
-Meemit
-	Stare-on-late
-
-Krishnan toiveet
-  Projekti valmiiksi
+**HUOM**
+Arkistossa pitää olla väh. yksi "dummy" käyttäjä, muuten kansiorakenne ei välttämättä toimi oikein

@@ -3,9 +3,12 @@ const path = require("path");
 const { spawn } = require("child_process");
 const fs = require("fs");
 
-try {
-  require("electron-reloader")(module);
-} catch (_) {}
+if ( process.env.NODE_ENV !== 'production') {
+  require('electron-reloader')(module, {
+    debug:true,
+    watchRenderer: true
+  })
+}
 
 let backendProcess = null;
 

@@ -1,5 +1,5 @@
 const english = {
-  morningText: "Good morning!",
+  morningText: "Good Morning!",
   localCounter: "Logins since last reset: ",
   globalCounter: "Total logins: ",
   errorNotification: ` is already logged in.`,
