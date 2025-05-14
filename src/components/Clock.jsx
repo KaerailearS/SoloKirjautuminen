@@ -3,6 +3,7 @@ import styles from '../styles/Clock.module.css'
 import finnish from "../languages/finnish";
 import english from "../languages/english";
 
+// Clock simply renders in the clock and keeps track of the time
 const Clock = () => {
   const [time, setTime] = React.useState(new Date());
 

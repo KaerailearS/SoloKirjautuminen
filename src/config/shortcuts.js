@@ -1,3 +1,4 @@
+// shortcut assignment for toggling admin panel
 const SHORTCUT_KEYS = {
   ADMIN_PANEL_TOGGLE: {
     ctrlKey: true, // currently only CTRL is needed to be held

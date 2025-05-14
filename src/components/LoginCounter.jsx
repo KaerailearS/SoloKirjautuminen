@@ -5,6 +5,7 @@ import english from "../languages/english";
 import { doc, getDoc, updateDoc, increment } from "firebase/firestore";
 import { db } from "../firebase/firebaseConfig";
 
+// login counter keeps track of logins, both over all time, as well as since the last reset. Global count is saved into Firestore in a separate folder, with no other data.
 const LoginCounter = ({ triggerUpdateRef, texts }) => {
   const [localCount, setLocalCount] = React.useState(0);
   const [globalCount, setGlobalCount] = React.useState(0);

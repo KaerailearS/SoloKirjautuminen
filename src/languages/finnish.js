@@ -1,3 +1,4 @@
+// language file for finnish - neither language file contains alert popups
 const finnish = {
   morningText: "Hyvää huomenta!",
   localCounter: "Kirjautumisia viime resetin jälkeen: ",

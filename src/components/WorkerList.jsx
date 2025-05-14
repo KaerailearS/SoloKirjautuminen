@@ -18,6 +18,7 @@ import LoginCounter from "./LoginCounter";
 import SHORTCUT_KEYS from "../config/shortcuts";
 import { formatLateTime } from "../utils/timeUtils";
 
+// container for the main section of the app - sorts worker cards alphabetically, adds all their functionality, as well as updating/saving data into Firestore. Also includes the conditional render for AdminPanel
 const WorkerList = ({ texts }) => {
   const [workers, setWorkers] = React.useState([]); // store Firebase / Firestore based worker data in state
   const [infoMessage, setInfoMessage] = React.useState(null); // informational message - success, late
@@ -83,6 +84,7 @@ const WorkerList = ({ texts }) => {
     if (incrementLoginCounter) incrementLoginCounter();
   };
 
+  // function for automatic logout
   const autoLogoutAllWorkers = async () => {
     const snapshot = await getDocs(collection(db, "workers"));
     const batch = [];
@@ -94,6 +96,7 @@ const WorkerList = ({ texts }) => {
     await Promise.all(batch);
     fetchWorkers();
   };
+  // admin mode toggle, reads required hotkey from shortcuts.js
   React.useEffect(() => {
     const handleKeyDown = (e) => {
       const shortcut = SHORTCUT_KEYS.ADMIN_PANEL_TOGGLE;
@@ -111,10 +114,12 @@ const WorkerList = ({ texts }) => {
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, []);
+  // fetches workers on load
   React.useEffect(() => {
     fetchWorkers();
   }, []);
 
+  // use effect for the automatic logout function, ran at midnight local time
   React.useEffect(() => {
     const now = new Date();
     const millisUntilMidnight =
@@ -127,6 +132,7 @@ const WorkerList = ({ texts }) => {
     }, millisUntilMidnight);
     return () => clearTimeout(timeoutId);
   }, []);
+  // renders in the login counters, the worker punchcards, notifications and conditionally the admin panel
   return (
     <div>
       <LoginCounter texts={texts} triggerUpdateRef={setIncrementLoginCounter} />

@@ -1,3 +1,4 @@
+// language file for english - neither language file contains alert popups
 const english = {
   morningText: "Good Morning!",
   localCounter: "Logins since last reset: ",

@@ -11,7 +11,7 @@ import WorkerList from "./components/WorkerList";
 export default function App() {
   const [language, setLanguage] = React.useState("english");
   const [texts, setTexts] = React.useState(english);
-
+  // language selection, starts in english by default, clicking the finnish flag changes to finnish and vice versa
   React.useEffect(() => {
     if (language === "finnish") {
       setTexts(finnish);
@@ -19,6 +19,8 @@ export default function App() {
       setTexts(english);
     }
   }, [language]);
+
+  // renders; language buttons, inspirational quote, the clock, and then the main worker punchcard section
   return (
     <div className={styles.container}>
       <div className={styles.languageButtonContainer}>
@@ -33,7 +35,6 @@ export default function App() {
       <main className={styles.main}>
         <WorkerList texts={texts} />
       </main>
-      <footer></footer>
     </div>
   );
 }

@@ -14,12 +14,15 @@ import {
 } from "firebase/firestore";
 import { db } from "../firebase/firebaseConfig";
 
+
+// Admin panel only for administrative use, contains functionalities for adding new workers, editing data, archiving and logging out.
 const AdminPanel = ({ workers, onUpdate, texts }) => {
   const [newWorkerName, setNewWorkerName] = React.useState("");
   const [edits, setEdits] = React.useState({});
   const [showInactiveWorkers, setShowInactiveWorkers] = React.useState(false);
   const [inactiveWorkers, setInactiveWorkers] = React.useState([]);
 
+  // add worker into the Firestore "workers" collection, only the name is variable dependant, other data is initially fixed
   const handleAddWorker = async () => {
     if (!newWorkerName.trim()) return;
 
@@ -35,6 +38,7 @@ const AdminPanel = ({ workers, onUpdate, texts }) => {
     onUpdate();
   };
 
+  // archiving worker - moves worker and all data to "inactive workers" collection, saves the Firestore ID, so it will be re-used if unarchived
   const handleArchive = async (id, name) => {
     const confirmed = window.confirm(
       `Are you sure you want to archive ${name}?`
@@ -60,6 +64,7 @@ const AdminPanel = ({ workers, onUpdate, texts }) => {
     onUpdate();
   };
 
+  // fetch function for inhabiting the archive
   const fetchInactiveWorkers = async () => {
     const snapshot = await getDocs(collection(db, "inactiveWorkers"));
     const result = snapshot.docs.map((doc) => ({
@@ -72,6 +77,7 @@ const AdminPanel = ({ workers, onUpdate, texts }) => {
     setInactiveWorkers(result);
   };
 
+  // reactivating archived worker - uses previously determined Firestore ID to pull worker back into the active "workers" folder, with all previous data intact
   const handleReactivate = async (worker) => {
     const confirmed = window.confirm(
       `Are you sure you want to reactivate ${worker.name}?`
@@ -97,6 +103,8 @@ const AdminPanel = ({ workers, onUpdate, texts }) => {
     alert(`${worker.name} has been reactivated.`);
     onUpdate();
   };
+
+  // masslogout functionality for stuck states or other problematic scenarios
   const handleLogoutAll = async () => {
     const confirmed = window.confirm("Log out all workers?");
     if (!confirmed) return;
@@ -112,6 +120,7 @@ const AdminPanel = ({ workers, onUpdate, texts }) => {
     onUpdate();
   };
 
+  // logging out individuals for stuck states or other problematic scenarios
   const handleLogoutOne = async (id, name) => {
     const confirmed = window.confirm(`Log out ${name}?`);
     if (!confirmed) return;
@@ -122,6 +131,7 @@ const AdminPanel = ({ workers, onUpdate, texts }) => {
     onUpdate();
   };
 
+  // functionality for editing name or time late
   const handleEditChange = (id, field, value) => {
     setEdits((prev) => ({
       ...prev,
@@ -132,6 +142,7 @@ const AdminPanel = ({ workers, onUpdate, texts }) => {
     }));
   };
 
+  // applies the above mentioned edits
   const handleSaveChanges = async (id) => {
     if (!edits[id]) return;
 
@@ -145,6 +156,7 @@ const AdminPanel = ({ workers, onUpdate, texts }) => {
     onUpdate();
   };
 
+  // admin panel only gets rendered in once a certain hotkey(or combination) is pressed. Renders in a title, input form for adding worker, a list of all active workers with edit inputs for name and time late, buttons for saving edits, archiving and logging out. At the bottom it has the mass logout button and toggleable archive, where all "inactive workers" reside and can be reactivated from.
   return (
     <div className={styles.adminPanel}>
       <h2 className={styles.heading}>{texts.adminPanel}</h2>

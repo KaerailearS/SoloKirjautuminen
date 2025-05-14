@@ -3,6 +3,8 @@ import styles from '../styles/QuoteDisplay.module.css'
 import finnish from "../languages/finnish";
 import english from "../languages/english";
 
+
+// pulls an inspirational quote from locally hosted quote server, which is fetching from ZenQuotes.io api. Has a few fallback systems in place for errors and inability to fetch. Only allows 2 cached quotes, since ZenQuotes has a strict limit on API calls per day. Updates the quote once per day, or when reloaded/refreshed etc.
 export default function QuoteDisplay({ texts}) {
   const [quote, setQuote] = React.useState("Blerp");
 

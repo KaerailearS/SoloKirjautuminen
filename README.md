@@ -8,7 +8,7 @@ Klikkaus aktivoi funktion joka vertaa aikaa kello yhdeksään, ja antaa ilmoituk
 Viestissä lukee myös kokonais myöhästymis aika.
 
 Ylhäällä on satunnaisesti vedetty "inspirational quote" ZenQuotes.io API:sta, joka vaihtuu joko applikaation resetattaessa, taikka kerran päivässä.
-Back-up quote löytyy, sekä myös error quote mikäli quote-backend server ei käynnissä taikka tavoitettavissa.
+Back-up quote löytyy, sekä myös error quote mikäli quote-backend server ei käynnissä taikka ei saavutettavissa.
 
 Taustalla quote-backend server.js hoitaa quotejen fetchaamisen ZenQuotesista, ja näyttää sen applikaation yläreunassa, mikäli mahdollista.
 

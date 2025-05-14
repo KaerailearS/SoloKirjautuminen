@@ -1,3 +1,5 @@
+// This is pretty much copypasted from Firestore, the only difference to the basic setup is changing the firebaseConfig object properties.
+
 // Import the functions you need from the SDKs you need
 
 import { initializeApp } from "firebase/app";
