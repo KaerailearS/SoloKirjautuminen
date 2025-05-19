@@ -9,14 +9,14 @@ import QuoteDisplay from "./components/QuoteDisplay";
 import WorkerList from "./components/WorkerList";
 
 export default function App() {
-  const [language, setLanguage] = React.useState("english");
+  const [language, setLanguage] = React.useState("finnish");
   const [texts, setTexts] = React.useState(english);
   // language selection, starts in english by default, clicking the finnish flag changes to finnish and vice versa
   React.useEffect(() => {
-    if (language === "finnish") {
-      setTexts(finnish);
-    } else {
+    if (language === "english") {
       setTexts(english);
+    } else {
+      setTexts(finnish);
     }
   }, [language]);
 

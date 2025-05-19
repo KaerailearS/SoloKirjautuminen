@@ -29,7 +29,7 @@
     ]
   },
   "scripts": {
-    "start": "concurrently \"npm run dev\" \"npm run electron\"",
+    "start": "concurrently \"npm run dev\"",
     "dev": "concurrently \"npm run backend\" \"npm run react\" \"npm run electron\"",
     "build": "vite build",
     "lint": "eslint .",
