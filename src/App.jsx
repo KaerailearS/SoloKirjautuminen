@@ -2,8 +2,8 @@ import React from "react";
 import styles from "./styles/App.module.css";
 import finnish from "./languages/finnish";
 import english from "./languages/english";
-import finnishFlag from "./assets/images/finnishflag_2.png"
-import englishFlag from "./assets/images/englishflag_2.png"
+import finnishFlag from "./assets/images/finnishflag.png"
+import englishFlag from "./assets/images/englishflag.png"
 import Clock from "./components/Clock";
 import QuoteDisplay from "./components/QuoteDisplay";
 import WorkerList from "./components/WorkerList";
